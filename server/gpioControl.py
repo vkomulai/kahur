@@ -1,3 +1,4 @@
+import json
 # TODO: handle gpio
 
 CMD_PREFIX = "BALL_FEED_"
@@ -7,6 +8,31 @@ CMD_PREFIX_SPIN = "SPIN_"
 
 CMD_START = "START"
 CMD_STOP = "STOP"
+
+CMD_SPEED_SLOW = "SLOW"
+CMD_SPEED_FAST = "FAST"
+
+CMD_SPIN_FLAT = "FLAT"
+CMD_SPIN_TOP = "TOP"
+CMD_SPIN_SLICE = "SLICE"
+
+
+class State:
+    def __init__(self, running, speed, spin):
+        self.running = running
+        self.speed = speed
+        self.spin = spin
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=2)
+
+
+state = State(CMD_STOP, CMD_SPEED_SLOW, CMD_SPIN_FLAT)
+
+
+def getState():
+    return state
 
 
 def handleBallFeeder(command):
@@ -28,15 +54,19 @@ def handleBallFeeder(command):
 
 def _stop():
     print('stopping ball feeder')
+    state.running = CMD_STOP
 
 
 def _start():
     print('Starting ball feeder')
+    state.running = CMD_START
 
 
 def _changeBallSpin(spin):
     print('Set ball spin:', spin)
+    state.spin = spin
 
 
 def _changeBallSeed(speed):
     print('Set ball speed:', speed)
+    state.speed = speed
