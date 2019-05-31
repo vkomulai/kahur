@@ -1,4 +1,4 @@
-# Raspberry PI Tennis ball machine Controller
+# Raspberry PI Tennis ball cannon Controller
 
 - Two high torque 12V DC-motors and motor controllers
 - One 12V dc motor to control ball feed

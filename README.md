@@ -1,8 +1,8 @@
-Raspberry PI contolled tennisball-machine
-=========================================
+Kahur - A Raspberry PI contolled tennisball cannon
+==================================================
 
-- A physical tennisball-machine using Raspberry PI, Python and Flutter
-- How complicated can it be? :smile:
+- A physical tennisball cannon using Raspberry PI, Python and Flutter
+- How complicated can it be? :smile:  
 
 # Features
 
