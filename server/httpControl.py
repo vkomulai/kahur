@@ -3,12 +3,13 @@
 # NOT meant to be used in production!!
 #######################################
 
-import bluetoothControl
-import gpioControl
 import os
 from flask import Flask
 from flask_basicauth import BasicAuth
 
+import bluetoothControl
+import systemControl
+import gpioControl
 
 app = Flask(__name__)
 app.config['BASIC_AUTH_USERNAME'] = os.environ.get(
@@ -26,7 +27,13 @@ def listen():
 
 @app.route('/api/control/<string:command>', methods=['POST'])
 def control(command):
-    bluetoothControl._handleInputData(command)
+    print("_listenClient, recieved command:", command)
+    if command.startswith(systemControl.CMD_PREFIX):
+        systemControl.handleSystem(command)
+    elif command.startswith(gpioControl.CMD_PREFIX):
+        gpioControl.handleBallFeeder(command)
+    else:
+        print('_listenClient, Unknown command:', command)
     return "Command:" + command
 
 

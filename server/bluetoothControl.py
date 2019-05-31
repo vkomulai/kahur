@@ -42,14 +42,9 @@ def _connect():
 def _listenClient(client):
     while True:
         data = client.recv(1024)  # 1024 is the buffer size.
-        _handleInputData(data)
-
-
-def _handleInputData(data):
-    print("_listenClient, recieved data:", data)
-    if data.startswith(systemControl.CMD_PREFIX):
-        systemControl.handleSystem(data)
-    elif data.startswith(gpioControl.CMD_PREFIX):
-        gpioControl.handleBallFeeder(data)
-    else:
-        print('_listenClient, Unknown command:', data)
+        if data.startswith(systemControl.CMD_PREFIX):
+            systemControl.handleSystem(data)
+        elif data.startswith(gpioControl.CMD_PREFIX):
+            gpioControl.handleBallFeeder(data)
+        else:
+            print('_listenClient, Unknown data:', data)
